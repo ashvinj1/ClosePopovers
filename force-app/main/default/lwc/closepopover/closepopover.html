@@ -1,0 +1,103 @@
+
+<template>
+
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." variant="brand" size="large" class="spinnerClass">
+        </lightning-spinner>
+    </template>
+
+    <template if:true={accounts.data}>
+        <div class="slds-text-heading_medium slds-float_left slds-p-around_x-small">Example of closing a popover</div>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered"
+            aria-label="Example of closing a popover">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Account Name">Account Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Account Number">Account Number</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Account Site">Account Site</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Annual Revenue">Annual Revenue</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Industry">Industry</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Action">Action</div>
+                    </th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                <template for:each={accounts.data} for:item="acc">
+                    <tr class="slds-hint-parent" key={acc.id}>
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title={acc.Name}>{acc.Name}</div>
+                        </td>
+                        <td data-label="Account Number">
+                            <div class="slds-truncate" title={acc.AccountNumber}>{acc.AccountNumber}</div>
+                        </td>
+                        <td data-label="Account Site">
+                            <div class="slds-truncate" title={acc.Site}>{acc.Site}</div>
+                        </td>
+                        <td data-label="Annual Revenue">
+                            <div class="slds-truncate" title={acc.AnnualRevenue}>{acc.AnnualRevenue}</div>
+                        </td>
+                        <td data-label="Email">
+                            <div class="slds-truncate" title={acc.Email__c}>{acc.Email__c}</div>
+                        </td>
+                        <td data-label="Industry">
+                            <div class="slds-truncate" title={acc.Industry}>{acc.Industry}</div>
+                        </td>
+                        <td data-label="Action">
+                            <div class="slds-align_absolute-center">
+                                <lightning-button-icon icon-name="utility:threedots" variant="container"
+                                    alternative-text="Settings" title="Settings" onclick={handleClick}
+                                    data-record-id={acc.Id} slot="actions">
+                                </lightning-button-icon>
+
+                                <!--popover start-->
+                                <section aria-label="Dialog title" aria-describedby="popover-body-id"
+                                    class="slds-hide custom-popover slds-popover slds-nubbin_right" role="dialog"
+                                    onmouseleave={mouseOutHandler} onmouseenter={mouseEnterHandler} data-id={acc.Id}
+                                    style="   position: absolute;
+                                                                                                left: auto;
+                                                                                                right: 89px;
+                                                                                                top: -30px;
+                                                                                                width: 350px;
+                                                                                                min-height: 100px;
+                                                                                                z-index: 9001;
+                                                                                                text-align: left;
+                                                                                                height: 78px">
+                                    <div class="slds-popover__body">
+                                        <div class="slds-popover__meta">
+                                            <span class="slds-badge">Account details</span>
+                                        </div>
+                                        <div class="slds-media">
+                                            <div class="slds-media__body">
+                                                <p class="slds-text-title">External links</p>
+                                                <p>
+                                                    <a target="_blank" href={acc.Name}>{acc.Name}</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!--popover end-->
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+</template>
